@@ -21,6 +21,8 @@ export default function App() {
         ]);
     };
 
+    const onDelete = () => {};
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -29,7 +31,7 @@ export default function App() {
             <FlatList
                 data={allTasks}
                 renderItem={task => (
-                    <TaskItem task={task.item.value} />
+                    <TaskItem onDelete={onDelete} task={task.item.value} />
                 )}></FlatList>
         </View>
     );

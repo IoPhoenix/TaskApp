@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
     listItem: {
@@ -9,11 +9,13 @@ const styles = StyleSheet.create({
     }
 });
 
-const TaskInput = ({ task }) => {
+const TaskInput = ({ onDelete, task }) => {
     return (
-        <View style={styles.listItem}>
-            <Text>{task}</Text>
-        </View>
+        <TouchableOpacity activeOpacity={0.8} onPress={onDelete}>
+            <View style={styles.listItem}>
+                <Text>{task}</Text>
+            </View>
+        </TouchableOpacity>
     );
 };
 
