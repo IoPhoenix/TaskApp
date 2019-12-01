@@ -1,34 +1,36 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    TextInput,
+    FlatList
+} from "react-native";
+import TaskInput from "./components/TaskInput";
+import TaskItem from "./components/TaskItem";
 
 export default function App() {
-    const [newTask, setTask] = React.useState("");
     const [allTasks, setAllTasks] = React.useState([]);
 
-    const onChangeText = text => setTask(text);
-
-    const addTask = () => {
+    const handleAddTask = newTask => {
         if (!newTask.length) return;
-        setAllTasks(currentTasks => [...currentTasks, newTask]);
-        setTask("");
+        setAllTasks(currentTasks => [
+            ...currentTasks,
+            { key: Math.random().toString(), value: newTask }
+        ]);
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <TextInput
-                    onChangeText={onChangeText}
-                    value={newTask}
-                    placeholder="New task"
-                    style={styles.userInput}
-                />
-                <Button title="ADD" onPress={addTask} />
+                <TaskInput onAddTask={handleAddTask} />
             </View>
-            <View>
-                {allTasks.map((task, i) => (
-                    <Text key={task + i}>{task}</Text>
-                ))}
-            </View>
+            <FlatList
+                data={allTasks}
+                renderItem={task => (
+                    <TaskItem task={task.item.value} />
+                )}></FlatList>
         </View>
     );
 }
@@ -41,15 +43,5 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
-    },
-    btn: {
-        width: "20%",
-        color: "black"
-    },
-    userInput: {
-        width: "80%",
-        padding: 10,
-        borderColor: "black",
-        borderWidth: 1
     }
 });
