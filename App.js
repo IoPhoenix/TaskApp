@@ -21,7 +21,11 @@ export default function App() {
         ]);
     };
 
-    const onDelete = () => {};
+    const handleDeleteTask = taskKey => {
+        setAllTasks(currentTasks =>
+            currentTasks.filter(task => task.key !== taskKey)
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -31,7 +35,10 @@ export default function App() {
             <FlatList
                 data={allTasks}
                 renderItem={task => (
-                    <TaskItem onDelete={onDelete} task={task.item.value} />
+                    <TaskItem
+                        onDelete={handleDeleteTask.bind(this, task.item.key)}
+                        task={task.item.value}
+                    />
                 )}></FlatList>
         </View>
     );
