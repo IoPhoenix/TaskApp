@@ -1,17 +1,11 @@
 import React from "react";
-import {
-    StyleSheet,
-    Text,
-    View,
-    Button,
-    TextInput,
-    FlatList
-} from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 import TaskInput from "./components/TaskInput";
 import TaskItem from "./components/TaskItem";
 
 export default function App() {
     const [allTasks, setAllTasks] = React.useState([]);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const handleAddTask = newTask => {
         if (!newTask.length) return;
@@ -29,9 +23,11 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.row}>
-                <TaskInput onAddTask={handleAddTask} />
-            </View>
+            <Button
+                title="Add new task"
+                onPress={() => setIsModalOpen(!isModalOpen)}
+            />
+            <TaskInput isModalOpen={isModalOpen} onAddTask={handleAddTask} />
             <FlatList
                 data={allTasks}
                 renderItem={task => (
@@ -47,10 +43,5 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         padding: 30
-    },
-    row: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
     }
 });
