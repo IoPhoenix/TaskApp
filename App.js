@@ -13,6 +13,7 @@ export default function App() {
             ...currentTasks,
             { key: Math.random().toString(), value: newTask }
         ]);
+        setIsModalOpen(false);
     };
 
     const handleDeleteTask = taskKey => {
@@ -21,13 +22,21 @@ export default function App() {
         );
     };
 
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <View style={styles.container}>
             <Button
                 title="Add new task"
                 onPress={() => setIsModalOpen(!isModalOpen)}
             />
-            <TaskInput isModalOpen={isModalOpen} onAddTask={handleAddTask} />
+            <TaskInput
+                onCancel={handleCancel}
+                isModalOpen={isModalOpen}
+                onAddTask={handleAddTask}
+            />
             <FlatList
                 data={allTasks}
                 renderItem={task => (

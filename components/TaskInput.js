@@ -20,9 +20,14 @@ const styles = StyleSheet.create({
     }
 });
 
-const TaskInput = ({ onAddTask, isModalOpen }) => {
+const TaskInput = ({ onCancel, onAddTask, isModalOpen }) => {
     const [newTask, setTask] = React.useState("");
     const onChangeText = text => setTask(text);
+
+    const handleAddTask = () => {
+        onAddTask(newTask);
+        setTask("");
+    };
 
     return (
         <Modal visible={isModalOpen} animationType="slide">
@@ -33,7 +38,8 @@ const TaskInput = ({ onAddTask, isModalOpen }) => {
                     placeholder="New task"
                     style={styles.userInput}
                 />
-                <Button title="ADD" onPress={onAddTask.bind(this, newTask)} />
+                <Button title="ADD" onPress={handleAddTask} />
+                <Button title="CANCEL" color="red" onPress={onCancel} />
             </View>
         </Modal>
     );
