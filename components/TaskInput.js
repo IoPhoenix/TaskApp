@@ -7,16 +7,20 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    btn: {
-        width: "20%",
-        color: "black"
-    },
     userInput: {
         width: "80%",
         padding: 10,
         borderColor: "black",
         borderWidth: 1,
         marginBottom: 10
+    },
+    buttonsContainer: {
+        width: "60%",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    btn: {
+        width: "40%"
     }
 });
 
@@ -35,11 +39,17 @@ const TaskInput = ({ onCancel, onAddTask, isModalOpen }) => {
                 <TextInput
                     onChangeText={onChangeText}
                     value={newTask}
-                    placeholder="New task"
+                    placeholder="Type in new task"
                     style={styles.userInput}
                 />
-                <Button title="ADD" onPress={handleAddTask} />
-                <Button title="CANCEL" color="red" onPress={onCancel} />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.btn}>
+                        <Button title="ADD" onPress={handleAddTask} />
+                    </View>
+                    <View style={styles.btn}>
+                        <Button title="CANCEL" color="red" onPress={onCancel} />
+                    </View>
+                </View>
             </View>
         </Modal>
     );
